@@ -8,17 +8,17 @@ fetch('https://assets.antv.antgroup.com/g6/cluster.json')
       data,
       layout: {
         type: 'fruchterman',
-        gravity: 10,
+        gravity: 5,
         speed: 5,
         clustering: true,
         nodeClusterBy: 'cluster',
+        clusterGravity: 16
       },
       node: {
         style: {
-          size: 20,
+          labelFill: '#fff',
           labelPlacement: 'center',
           labelText: (d) => d.id,
-          labelBackground: false,
         },
         palette: {
           type: 'group',

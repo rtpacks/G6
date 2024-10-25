@@ -12,6 +12,7 @@ import {
 } from '@antv/g';
 import { ComboCollapse, ComboExpand, Fade, NodeCollapse, NodeExpand, PathIn, PathOut, Translate } from '../animations';
 import {
+  AutoAdaptLabel,
   BrushSelect,
   ClickSelect,
   CollapseExpand,
@@ -73,6 +74,7 @@ import {
   Background,
   BubbleSets,
   Contextmenu,
+  EdgeBundling,
   EdgeFilterLens,
   Fisheye,
   Fullscreen,
@@ -127,6 +129,7 @@ const BUILT_IN_EXTENSIONS: ExtensionRegistry = {
     'focus-element': FocusElement,
     'hover-activate': HoverActivate,
     'lasso-select': LassoSelect,
+    'auto-adapt-label': AutoAdaptLabel,
     'optimize-viewport-transform': OptimizeViewportTransform,
     'scroll-canvas': ScrollCanvas,
     'zoom-canvas': ZoomCanvas,
@@ -188,6 +191,7 @@ const BUILT_IN_EXTENSIONS: ExtensionRegistry = {
   },
   plugin: {
     'bubble-sets': BubbleSets,
+    'edge-bundling': EdgeBundling,
     'edge-filter-lens': EdgeFilterLens,
     'grid-line': GridLine,
     background: Background,

@@ -1,5 +1,11 @@
 import { Graph, treeToGraphData } from '@antv/g6';
 
+const getNodeSide = (graph, datum) => {
+  const parentData = graph.getParentData(datum.id, 'tree');
+  if (!parentData) return 'center';
+  return datum.style.x > parentData.style.x ? 'right' : 'left';
+};
+
 fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/algorithm-category.json')
   .then((res) => res.json())
   .then((data) => {
@@ -8,19 +14,14 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/algorithm-category.j
       autoFit: 'view',
       data: treeToGraphData(data),
       node: {
-        style: (model) => {
-          const x = +model.style.x;
-          return {
-            labelText: model.id,
-            size: 26,
-            labelPlacement: x > 0 ? 'right' : 'left',
-            labelMaxWidth: 200,
-            labelTextAlign: x > 0 ? 'start' : 'end',
-            lineWidth: 1,
-            stroke: '#5F95FF',
-            fill: '#EFF4FF',
-            ports: [{ placement: 'right' }, { placement: 'left' }],
-          };
+        style: {
+          labelText: d => d.id,
+          labelBackground: true,
+          labelPlacement: function (d) {
+            const side = getNodeSide(this, d);
+            return side === 'center' ? 'right' : side
+          },
+          ports: [{ placement: 'right' }, { placement: 'left' }],
         },
         animation: {
           enter: false,
@@ -35,18 +36,10 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/algorithm-category.j
       layout: {
         type: 'mindmap',
         direction: 'H',
-        getHeight: () => {
-          return 16;
-        },
-        getWidth: () => {
-          return 16;
-        },
-        getVGap: () => {
-          return 10;
-        },
-        getHGap: () => {
-          return 50;
-        },
+        getHeight: () => 32,
+        getWidth: () => 32,
+        getVGap: () => 4,
+        getHGap: () => 64,
         getSide: (d) => {
           if (d.id === 'Classification') {
             return 'left';
